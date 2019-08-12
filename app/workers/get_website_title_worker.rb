@@ -5,7 +5,9 @@ class GetWebsiteTitleWorker
     short_url = ShortUrl.find(short_url_id)
     mechanize = Mechanize.new
     page = mechanize.get(short_url.url)
-    short_url.title = page.title
-    short_url.save
+    if page.respond_to? :title
+      short_url.title = page.title
+      short_url.save
+    end
   end
 end
