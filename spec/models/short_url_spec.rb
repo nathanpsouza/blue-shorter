@@ -32,4 +32,14 @@ RSpec.describe ShortUrl, type: :model do
       expect(short_url.encoded_id).to eq(short_url.id.to_s(36))
     end
   end
+
+  describe 'increment_visits_counter!' do
+    let(:short_url) { FactoryBot.create(:short_url) }
+    
+    it 'add one more visit to counter' do
+      expect {
+        short_url.increment_visits_counter!
+      }.to change(short_url, :visits_counter).by(1)
+    end
+  end
 end

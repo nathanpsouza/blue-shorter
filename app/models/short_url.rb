@@ -20,6 +20,11 @@ class ShortUrl < ApplicationRecord
 
   after_create :encode_id
 
+  def increment_visits_counter!
+    self.visits_counter = self.visits_counter + 1
+    self.save
+  end
+
   private
 
   def encode_id
