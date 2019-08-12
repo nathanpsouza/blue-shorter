@@ -3,6 +3,7 @@
 # Table name: short_urls
 #
 #  id             :bigint           not null, primary key
+#  title          :string
 #  url            :string
 #  visits_counter :integer          default(0)
 #  created_at     :datetime         not null
