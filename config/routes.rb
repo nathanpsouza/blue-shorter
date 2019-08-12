@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  get '/:id' => 'redirects#show'
+  resources :shorten, only: :create
+  get '/:id' => 'redirects#show', as: :redirect_to_short
 end
