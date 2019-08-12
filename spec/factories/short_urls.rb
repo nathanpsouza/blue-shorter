@@ -18,6 +18,6 @@
 FactoryBot.define do
   factory :short_url do
     url { Faker::Internet.url }
-    visits_counter { 0 }
+    visits_counter { rand(1..1000) }
   end
 end
