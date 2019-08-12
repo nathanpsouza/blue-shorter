@@ -1,0 +1,9 @@
+<div>
+  You will be redirected to <%= link_to @short_url.url %> in 3 seconds.
+</div>
+
+<script>
+  setTimeout(() => {
+    window.location = "<%= @short_url.url %>";
+  }, 3000);
+</script>

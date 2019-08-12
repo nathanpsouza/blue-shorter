@@ -5,14 +5,19 @@ RSpec.describe RedirectsController, type: :controller do
     context 'when encoded_id exists' do
       let!(:short_url) { FactoryBot.create(:short_url) }
       
-      it 'return http status found' do
+      it 'return http status ok' do
         get :show, params: { id: short_url.encoded_id }  
-        expect(response).to have_http_status(:found)
+        expect(response).to have_http_status(:ok)
       end
 
-      it 'redirect to correct address' do
+      it 'render template show' do
         get :show, params: { id: short_url.encoded_id }  
-        expect(response).to redirect_to(short_url.url)
+        expect(response).to render_template(:show)
+      end
+
+      it 'assings @short_url' do
+        get :show, params: { id: short_url.encoded_id }  
+        expect(assigns(:short_url)).to eq(short_url)
       end
 
       it 'increment short_url visits_counter by 1' do
