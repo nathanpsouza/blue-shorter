@@ -26,6 +26,14 @@ class ShortUrl < ApplicationRecord
     self.save
   end
 
+  def short_url
+    Rails
+      .application
+      .routes
+      .url_helpers
+      .redirect_to_short_url(self.encoded_id, host: ENV['API_ADDRESS'])
+  end
+
   private
 
   def encode_id
