@@ -14,6 +14,17 @@ RSpec.describe GetWebsiteTitleWorker, type: :worker do
 
     context 'when page do not have title' do
       let(:short_url) { FactoryBot.create(:short_url, url: 'https://gist.githubusercontent.com/nathanpsouza/e0e15dca7f495516f221b97cc223401c/raw/18645bba450dde69ba3e7b1320f45bc62bf140a7/gistfile1.txt') }
+      
+      it 'leave title empty' do
+        worker.perform(short_url.id)
+        short_url.reload
+        expect(short_url.title).to be_nil
+      end
+    end
+
+    context 'when url do not exist' do
+      let!(:short_url) { FactoryBot.create(:short_url, url: 'https://googlsadfsadfsade.com') }
+      
       it 'leave title empty' do
         worker.perform(short_url.id)
         short_url.reload
