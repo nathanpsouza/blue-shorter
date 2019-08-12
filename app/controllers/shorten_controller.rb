@@ -2,6 +2,7 @@ class ShortenController < ApplicationController
   def create
     short_url = ShortUrl.new(url: short_url_params[:url])
     if short_url.save
+      GetWebsiteTitleWorker.perform_async(short_url.id)
       url = redirect_to_short_url(short_url.encoded_id)
       render json: { short_url: url }, status: :created
     else

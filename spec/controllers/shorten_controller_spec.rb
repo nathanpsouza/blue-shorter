@@ -23,6 +23,12 @@ RSpec.describe ShortenController, type: :controller do
         url = redirect_to_short_url(ShortUrl.last.encoded_id)
         expect(parsed_json["short_url"]).to eq(url)
       end
+
+      it 'enqueue job to get website title' do
+        expect {
+          post :create, body: json, format: :json
+        }.to change(GetWebsiteTitleWorker.jobs, :size ).by(1)
+      end
     end
 
     context 'with invalid url' do
